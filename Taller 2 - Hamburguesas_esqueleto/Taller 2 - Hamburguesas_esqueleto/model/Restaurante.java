@@ -1,7 +1,16 @@
 package model;
 import java.util.ArrayList;
-import java.io.File;
+import java.util.Scanner;
 
+import javax.print.event.PrintEvent;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.Reader;
+import java.lang.reflect.Array;
 
 public class Restaurante {
 
@@ -15,9 +24,8 @@ public class Restaurante {
 
     public void iniciarPedido(String nombreCliente, String direccionCliente){
         
-        final Pedido elPedido = new Pedido(nombreCliente,direccionCliente);
+        elPedido = new Pedido(nombreCliente,direccionCliente);
         
-        this.elPedido = elPedido; 
     }
 
     public void cerrarGuardarPedido(){
@@ -43,21 +51,108 @@ public class Restaurante {
 
     public void cargarInformacionRestaurante(File archivoIngredientes, File archivoMenu, File archivoCombos){
 
-
+        cargarIngredientes(archivoIngredientes);
+        cargarCombos(archivoCombos);
+        cargarMenu(archivoMenu);
     }
 
     private void cargarIngredientes(File archivoIngredientes){
 
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(archivoIngredientes));
+            String line; 
 
+            while ((line = reader.readLine()) != null);
+
+            reader.close();
+
+            String[] elements = line.split("\n");
+
+            int index = elements.length-1;
+
+            for (int i=0;i<=index;i++){
+
+                String [] splited = elements[i].split(";");
+
+		        Ingrediente ingrediente = new Ingrediente(splited[0],Integer.parseInt(splited[1]));
+                
+
+                ingredientes.add(ingrediente);
+
+            }
+
+        }
+
+        catch (IOException e){
+
+            System.out.println(e);
+
+        }
     }
 
     private void cargarMenu(File archivoMenu){
 
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(archivoMenu));
+            String line; 
+
+            while ((line = reader.readLine()) != null);
+
+            reader.close();
+
+            String[] elements = line.split("\n");
+
+            int index = elements.length-1;
+
+            for (int i=0;i<=index;i++){
+
+                String [] splited = elements[i].split(";");
+
+		        ProductoMenu productoMenu = new ProductoMenu(splited[0],Integer.parseInt(splited[1]));
+            
+                menu.add(productoMenu);
+
+            }
+
+        }
+
+        catch (IOException e){
+
+            System.out.println(e);
+        }
 
     }
 
     private void cargarCombos(File archivoCombos){
 
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(archivoCombos));
+            String line; 
+
+            while ((line = reader.readLine()) != null);
+
+            reader.close();
+
+            String[] elements = line.split("\n");
+
+            int index = elements.length-1;
+
+            for (int i=0;i<=index;i++){
+
+                String [] splited = elements[i].split(";");
+
+		        Combo combo = new Combo(splited[0],Integer.parseInt(splited[1]));
+            
+                combos.add(combo);
+
+            }
+
+        }
+
+        catch (IOException e){
+
+            System.out.println(e);
+        }
 
 
     }

@@ -1,6 +1,6 @@
 package model;
 
-public class ProductoMenu {
+public class ProductoMenu implements Producto{
 
     private String nombre; 
 
@@ -15,11 +15,15 @@ public class ProductoMenu {
 
     }
 
+    @Override
+
     public String getNombre(){
 
         return nombre; 
 
     }
+
+    @Override
 
     public int getPrecio(){
 
@@ -27,9 +31,13 @@ public class ProductoMenu {
 
     }
 
+    @Override
+
     public String generarTextoFactura(){
 
-        return "";
+        String textoFactura = nombre+": "+Integer.toString(precioBase);
+
+        return textoFactura;
 
     }
 

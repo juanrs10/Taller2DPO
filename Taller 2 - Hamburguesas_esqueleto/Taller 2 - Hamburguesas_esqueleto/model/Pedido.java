@@ -1,11 +1,19 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.print.event.PrintEvent;
+
 import model.Producto; 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.nio.charset.StandardCharsets;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Pedido {
 
@@ -13,7 +21,7 @@ public class Pedido {
     private String dirCliente;
     private int cantidadPedidos;
     private int idPedido;
-    private ArrayList<Producto> productos;
+    private ArrayList<Producto> productos = new ArrayList<Producto>();
 
 
     public Pedido(String nombreCliente, String dirCliente){
@@ -28,8 +36,12 @@ public class Pedido {
         return idPedido;
     }
 
-    public void agregarProducto(Producto nuevoItem){
+    public ArrayList<Producto> getProductos(){
 
+        return productos;
+    }
+
+    public void agregarProducto(Producto nuevoItem){
         productos.add(nuevoItem); 
     }
 
@@ -67,23 +79,22 @@ public class Pedido {
 
     private String generarTextoFactura(){
 
-        String textoFactura = Integer.toString(getIdPedido())+"\n";
+        String textoFactura = "Id pedido: "+Integer.toString(getIdPedido())+"\n"+"Nombre: "+nombreCliente+"\n"+"Dirección: "+dirCliente+"\n";
 
         int len = productos.size(); 
 
         for (int i  = 0; i<len ; i++){
 
-            textoFactura += productos.get(i).getNombre();
-            textoFactura += "             ";
-            textoFactura += productos.get(i).getPrecio();
+            textoFactura += productos.get(i).generarTextoFactura();
             textoFactura += "\n";
-
-
         }
 
         textoFactura+="Neto: "+Integer.toString(getPrecioNetoPedido())+"\n";
         textoFactura+="IVA: "+Integer.toString(getPrecioIvaPedido())+"\n";
         textoFactura+="Total a pagar: "+Integer.toString(getPrecioNetoPedido()+getPrecioIvaPedido());
+
+
+        System.out.println(textoFactura);
 
 
         return textoFactura;
@@ -94,11 +105,20 @@ public class Pedido {
 
     public void guardarFactura(String archivo){
 
-        /*
+        
         String texto = generarTextoFactura();
-        Files.writeString(archivo,texto,StandardCharsets.UTF_8,StandardOpenOption.APPEND);
 
-         */
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Facturas.txt"));
+            writer.write(texto);
+            writer.close();
+        }
+
+        catch (IOException e){
+
+            System.out.println(e);
+        }
+
     }
 
 

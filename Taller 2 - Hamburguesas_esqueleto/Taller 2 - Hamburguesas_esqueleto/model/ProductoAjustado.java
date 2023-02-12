@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 
-public class ProductoAjustado{
+public class ProductoAjustado implements Producto{
 
     private String nombre; 
 
@@ -37,20 +37,27 @@ public class ProductoAjustado{
         
     }
 
+    @Override
+
     public String getNombre(){
 
         return nombre; 
 
     }
 
+    @Override
+
     public int getPrecio(){
 
         return precioAjustado; 
     }
 
+    @Override
     public String generarTextoFactura(){
 
-        //not ready
+        String textoFactura = nombre + ": " + Integer.toString(precioAjustado);
+
+        return textoFactura;
 
     }
 

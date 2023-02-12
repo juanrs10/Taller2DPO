@@ -1,35 +1,10 @@
 package model;
 
-public class Producto {
+interface Producto {
 
-    private String nombre;
-    private int precioBase; 
+    public int getPrecio();
 
-    public Producto(String nombre, int precioBase){
+    public String getNombre();
 
-        this.nombre = nombre; 
-
-        this.precioBase = precioBase; 
-    }
-
-
-    
-    public int getPrecio(){
-
-        return precioBase; 
-    }
-
-    public String getNombre(){
-
-        return nombre; 
-
-
-    }
-
-    public String generarTextoFactura(){
-
-        //not ready
-
-
-    }
+    public String generarTextoFactura();
 }
