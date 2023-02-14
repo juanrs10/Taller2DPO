@@ -226,7 +226,46 @@ public class App {
 				else if (opcion_seleccionada1 == 5){
 
 					//GET PEDIDO POR ID
-					continue;
+
+					Pedido getPedido = restaurante.getPedidoEnCurso();
+
+
+					if (getPedido == null){
+
+						System.out.println("--Primero debe iniciar su pedido--");
+					} 
+
+					else{
+
+						System.out.println("\nIngrese el id de su pedido: ");
+						int idPedido = Integer.parseInt(scanner.nextLine());
+
+						ArrayList<Producto> productos = getPedido.getProductos();
+
+						System.out.println("\nResumen del pedido: ");
+						
+						int totalPrecio = 0;
+
+						for (int i = 0; i<productos.size();i++){
+
+
+
+							Producto producto = productos.get(i);
+
+							totalPrecio+=producto.getPrecio();
+
+							String countStr = Integer.toString((i+1));
+
+							System.out.println("\n"+countStr+". "+producto.getNombre()+": "+Integer.toString(producto.getPrecio()));
+
+							System.out.println("\nTotal: "+Integer.toString(totalPrecio));
+
+
+						}
+
+					}
+
+				
 				}
 
 			}
