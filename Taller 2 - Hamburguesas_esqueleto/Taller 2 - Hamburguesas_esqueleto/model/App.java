@@ -31,7 +31,7 @@ public class App {
 		restaurante.cargarInformacionRestaurante(fileIngredientes, fileMenu, fileCombos);
 
 		Pedido pedido = new Pedido("na", "na");
-		Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);		
 
 		while (continuar)
 		{
@@ -235,7 +235,9 @@ public class App {
 				System.out.println("Debe seleccionar uno de los números de las opciones.");
 			}
 		}
+		scanner.close();
 	}
+
 
 
 	/**
