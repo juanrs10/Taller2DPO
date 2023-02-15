@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import java.lang.Math;
+
 public class Combo {
 
     private double descuento; 
@@ -37,8 +39,7 @@ public class Combo {
 
         }
 
-
-        int precioFinal = (int) (precioCombo - descuento); 
+        int precioFinal = (int) Math.round((precioCombo)*(1-(descuento/100))); 
 
         return precioFinal; 
 

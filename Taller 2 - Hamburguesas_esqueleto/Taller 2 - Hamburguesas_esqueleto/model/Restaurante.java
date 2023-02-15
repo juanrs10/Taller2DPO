@@ -12,9 +12,18 @@ import java.io.BufferedReader;
 import java.io.Reader;
 import java.lang.reflect.Array;
 
+//DICT DEPENDENCIES
+
+import java.util.Dictionary;
+import java.lang.Enum; 
+import java.util.Hashtable;
 public class Restaurante {
 
     public ArrayList<ProductoMenu> menu; 
+
+    Dictionary <String,Producto> menuHashed = new Hashtable<>();
+    
+    Dictionary <String,Ingrediente> ingredientesHashed = new Hashtable<>();
 
     public ArrayList<Ingrediente> ingredientes; 
 
@@ -75,8 +84,9 @@ public class Restaurante {
                 String [] splited = elements[i].split(";");
 
 		        Ingrediente ingrediente = new Ingrediente(splited[0],Integer.parseInt(splited[1]));
-                
 
+                ingredientesHashed.put(splited[0], ingrediente);
+                
                 ingredientes.add(ingrediente);
 
             }
@@ -109,6 +119,8 @@ public class Restaurante {
                 String [] splited = elements[i].split(";");
 
 		        ProductoMenu productoMenu = new ProductoMenu(splited[0],Integer.parseInt(splited[1]));
+
+                menuHashed.put(splited[0],productoMenu);
             
                 menu.add(productoMenu);
 
@@ -141,8 +153,18 @@ public class Restaurante {
 
                 String [] splited = elements[i].split(";");
 
-		        Combo combo = new Combo(splited[0],Integer.parseInt(splited[1]));
-            
+                int indexS = splited.length-1;
+
+                Combo combo = new Combo(splited[0],Integer.parseInt(splited[1]));
+
+                for (int j = 1; j<=indexS;j++){
+
+                    Producto itemCombo = menuHashed.get(splited[j]);
+
+                    combo.agregarItemACombo(itemCombo);
+
+                }
+
                 combos.add(combo);
 
             }

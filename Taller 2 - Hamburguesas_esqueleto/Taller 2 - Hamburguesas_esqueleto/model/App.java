@@ -307,6 +307,16 @@ public class App {
 
 	}
 
+	/*
+	public void mostrarCombos()
+	{
+		Null
+
+	}
+
+	 */
+
+
 	public void mostrarMenu()
 	{
 		System.out.println("1. Corral queso: 16.000");
